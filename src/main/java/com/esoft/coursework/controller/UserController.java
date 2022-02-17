@@ -92,7 +92,7 @@ public class UserController {
                 	user.setCode(formObject.getString("code"));
                 	user.setDesignation(formObject.getString("designation"));
                 	user.setName(formObject.getString("name"));
-                	user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
+                	//user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
                 	user.setUsername(formObject.getString("username"));
                 	user.setPassword(formObject.getString("password"));
                 	user.setCreatedUser(userSessionUtil.getUserName());
@@ -135,8 +135,8 @@ public class UserController {
                     	if (formObject.getString("name")!=null && formObject.getString("name")!="") 
                     		user.setName(formObject.getString("name"));
                     	
-                    	if (formObject.getString("collectionCenterId")!=null && formObject.getString("collectionCenterId")!="") 
-                    		user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
+                    	//if (formObject.getString("collectionCenterId")!=null && formObject.getString("collectionCenterId")!="") 
+                    		//user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
                     	
                     	if (formObject.getString("username")!=null && formObject.getString("username")!="") 
                     		user.setUsername(formObject.getString("username"));

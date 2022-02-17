@@ -20,7 +20,7 @@ public class User extends MapModifiedUserEntity {
 	private String code;
 	private String name;
 	private String designation;
-	private Long collectionCenterId;
+	private Long operationCenterId;
 	private String username;
 	private String password;
 	
@@ -48,12 +48,12 @@ public class User extends MapModifiedUserEntity {
 		this.designation = designation;
 	}
 	
-	@Column(name="collection_center_id")
-	public Long getCollectionCenterId() {
-		return collectionCenterId;
+	@Column(name="operation_center_id")
+	public Long getOperationCenterId() {
+		return operationCenterId;
 	}
-	public void setCollectionCenterId(Long collectionCenterId) {
-		this.collectionCenterId = collectionCenterId;
+	public void setOperationCenterId(Long operationCenterId) {
+		this.operationCenterId = operationCenterId;
 	}
 	
 	@Column(name="username")
