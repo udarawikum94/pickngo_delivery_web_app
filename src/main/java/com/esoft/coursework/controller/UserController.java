@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 import com.esoft.coursework.domain.User;
 import com.esoft.coursework.serviceimpl.UserServiceImpl;
 import com.esoft.coursework.util.UserSessionUtil;
@@ -58,7 +58,7 @@ public class UserController {
         
         Optional<User> user = getUserServiceImpl().getUserByUsername(username);
         if (user.isPresent()) {
-        	CollectionCenter collectionCenter = new CollectionCenter();
+        	OperationalCenter operationalCenter = new OperationalCenter();
         	obj.put("userId", user.get().getId()); 
 			obj.put("userName", user.get().getUsername());
 			obj.put("designation", user.get().getDesignation());

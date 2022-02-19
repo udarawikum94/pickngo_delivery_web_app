@@ -380,7 +380,30 @@
    		  })
    		  .then(function (response) {
    		    console.log(response);
-   		    alert(response['data']['msg']);
+   		    if (response['data']['error']=="Y") {
+   		    	if (response['data']['nicbr']!="") {
+   		    		document.getElementById("msgNicbr").innerHTML = "nic/br is required";
+   		    	}
+   		    	
+   		    	if (response['data']['contactNo']!="") {
+   		    		document.getElementById("msgContactNo").innerHTML = "contact number is required";
+   		    	}
+   		    	
+   		    	if (response['data']['name']!="") {
+   		    		document.getElementById("msgName").innerHTML = "name is required";
+   		    	}
+   		    	
+   		    	if (response['data']['address']!="") {
+   		    		document.getElementById("msgAddress").innerHTML = "address is required";
+   		    	}
+   		    	
+   		    	if (response['data']['status']!="") {
+   		    		document.getElementById("msgStatus").innerHTML = "status is required";
+   		    	}
+   		    	
+   		    } else {
+   		    	alert(response['data']['msg']);
+   		    }
    		  })
    		  .catch(function (error) {
    		    alert(error);
@@ -675,6 +698,7 @@
           </div>
 
         <div class="row">
+        <!-- Left Side -->
           <div class="col-lg-6">
             <div class="card mb-3">
               <div class="card-header">
@@ -721,6 +745,8 @@
               </div>
             </div>
           </div>
+          
+         <!--  Right Side -->
           <div class="col-lg-6">
             <div class="card mb-3">
               <div class="card-header">

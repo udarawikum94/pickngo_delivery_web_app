@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 import com.esoft.coursework.domain.User;
 import com.esoft.coursework.serviceimpl.LoginServiceImpl;
 import com.esoft.coursework.serviceimpl.UserServiceImpl;
@@ -54,14 +54,14 @@ public class LoginController {
         User user = getLoginServiceImpl().getUserLogin(username, password);
         
         if (user!= null) {
-        	CollectionCenter collectionCenter = new CollectionCenter();
+        	OperationalCenter operationalCenter = new OperationalCenter();
 			obj.put("userId", user.getId()); 
 			obj.put("userName", user.getUsername());
 			obj.put("designation", user.getDesignation());
 			obj.put("userCode", user.getCode());
 			
-			if (collectionCenter!=null)
-				obj.put("collectionCenter", collectionCenter);
+			if (operationalCenter!=null)
+				obj.put("collectionCenter", operationalCenter);
 			else {
 				obj = new JSONObject();
 				obj.put("msg", "Collection center not mapped");
@@ -73,7 +73,7 @@ public class LoginController {
         	sessionUtil.setUserName(user.getUsername());
         	sessionUtil.setDesignation(user.getDesignation());
         	sessionUtil.setUserCode(user.getCode());
-        	sessionUtil.setCollectionCenter(collectionCenter);
+        	sessionUtil.setCollectionCenter(operationalCenter);
         	
         	HttpSession httpSession = request.getSession();
         	httpSession.setAttribute("userSession", sessionUtil);

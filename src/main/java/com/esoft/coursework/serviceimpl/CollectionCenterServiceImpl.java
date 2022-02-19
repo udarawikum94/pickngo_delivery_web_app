@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.esoft.coursework.daoimpl.CollectionCenterDAOImpl;
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 
 @Service
 public class CollectionCenterServiceImpl {
@@ -23,12 +23,12 @@ public class CollectionCenterServiceImpl {
 	}
 
 	@Transactional
-	public CollectionCenter getCollectionCenterById(Long id) {
+	public OperationalCenter getCollectionCenterById(Long id) {
 		return getCollectionCenterDAOImpl().getCollectionCenterById(id);
 	}
 	
 	@Transactional
-	public List<CollectionCenter> getAllCollectionCenter() {
+	public List<OperationalCenter> getAllCollectionCenter() {
 		return getCollectionCenterDAOImpl().getAllCollectionCenter();
 	}
 	
@@ -43,18 +43,18 @@ public class CollectionCenterServiceImpl {
 	}
 	
 	@Transactional
-	public void saveCollectionCenter(CollectionCenter collectionCenter) {
-		getCollectionCenterDAOImpl().saveCollectionCenter(collectionCenter);
+	public void saveCollectionCenter(OperationalCenter operationalCenter) {
+		getCollectionCenterDAOImpl().saveCollectionCenter(operationalCenter);
 	}
 	
 	
 	@Transactional
-	public void updateCollectionCenter(CollectionCenter collectionCenter) {
-		getCollectionCenterDAOImpl().updateCollectionCenter(collectionCenter);
+	public void updateCollectionCenter(OperationalCenter operationalCenter) {
+		getCollectionCenterDAOImpl().updateCollectionCenter(operationalCenter);
 	}
 	
 	@Transactional
-	public void deleteCollectionCenter(CollectionCenter collectionCenter) {
-		getCollectionCenterDAOImpl().deleteCollectionCenter(collectionCenter);
+	public void deleteCollectionCenter(OperationalCenter operationalCenter) {
+		getCollectionCenterDAOImpl().deleteCollectionCenter(operationalCenter);
 	}
 }

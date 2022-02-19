@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 
 @Component
 @Scope("session")
@@ -14,7 +14,7 @@ public class UserSessionUtil {
 	private String userCode;
 	private String userName;
 	private String designation;
-	private CollectionCenter collectionCenter;
+	private OperationalCenter operationalCenter;
 	
 	public static UserSessionUtil getUserSessionUtil(HttpServletRequest httpServletRequest) {
 		if (httpServletRequest.getSession()	.getAttribute("userSession")!=null)
@@ -51,11 +51,11 @@ public class UserSessionUtil {
 		this.designation = designation;
 	}
 	
-	public CollectionCenter getCollectionCenter() {
-		return collectionCenter;
+	public OperationalCenter getCollectionCenter() {
+		return operationalCenter;
 	}
-	public void setCollectionCenter(CollectionCenter collectionCenter) {
-		this.collectionCenter = collectionCenter;
+	public void setCollectionCenter(OperationalCenter operationalCenter) {
+		this.operationalCenter = operationalCenter;
 	}
 	
 }

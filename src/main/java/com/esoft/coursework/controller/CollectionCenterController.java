@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 import com.esoft.coursework.enumeration.RecordStatusEnum;
 import com.esoft.coursework.serviceimpl.CollectionCenterServiceImpl;
 import com.esoft.coursework.util.UserSessionUtil;
@@ -43,7 +43,7 @@ public class CollectionCenterController {
     public String allCollectionCenters() {
         JSONObject obj = new JSONObject();
         
-        List<CollectionCenter> collectionCenterList = getCollectionCenterServiceImpl().getAllCollectionCenter();
+        List<OperationalCenter> collectionCenterList = getCollectionCenterServiceImpl().getAllCollectionCenter();
         obj.put("collectionCenterList", collectionCenterList);
         
         return obj.toString();
@@ -54,10 +54,10 @@ public class CollectionCenterController {
     public String getCollectionCenterById(@PathVariable(value = "recordId", required = true) Long recordId) {
         JSONObject obj = new JSONObject();
         
-        CollectionCenter collectionCenter = getCollectionCenterServiceImpl().getCollectionCenterById(recordId);
-        obj.put("collectionCenterId", collectionCenter.getId());
-        obj.put("collectionCenterCode", collectionCenter.getCode());
-        obj.put("collectionCenterName", collectionCenter.getName());
+        OperationalCenter operationalCenter = getCollectionCenterServiceImpl().getCollectionCenterById(recordId);
+        obj.put("collectionCenterId", operationalCenter.getId());
+        obj.put("collectionCenterCode", operationalCenter.getCode());
+        obj.put("collectionCenterName", operationalCenter.getName());
         
         return obj.toString();
     }
@@ -74,21 +74,24 @@ public class CollectionCenterController {
         	if (userSessionUtil!=null) {
         		boolean status = getCollectionCenterServiceImpl().isExistCollectionCenterByCode(formObject.getString("code"));
             	if (!status) {
-            		CollectionCenter collectionCenter = new CollectionCenter();
+            		OperationalCenter operationalCenter = new OperationalCenter();
                     
-            		collectionCenter.setCode(formObject.getString("code"));
-            		collectionCenter.setAddress(formObject.getString("address"));
-            		collectionCenter.setName(formObject.getString("name"));
-            		collectionCenter.setCollectionLimit(formObject.getBigDecimal("collectionLimit"));
-            		collectionCenter.setCapacity(formObject.getBigDecimal("capacity"));
-            		collectionCenter.setContactNo1(formObject.getString("contactNo1"));
-            		collectionCenter.setContactNo2(formObject.getString("contactNo2"));
-            		collectionCenter.setStatus(RecordStatusEnum.ACTIVE.getDescription());
-            		collectionCenter.setDescription(formObject.getString("description"));
-            		collectionCenter.setCreatedUser(userSessionUtil.getUserName());
-            		collectionCenter.setCreatedDate(new Date());
+            		operationalCenter.setCode(formObject.getString("code"));
+            		operationalCenter.setAddress(formObject.getString("address"));
+            		operationalCenter.setName(formObject.getString("name"));
+					/*
+					 * operationalCenter.setCollectionLimit(formObject.getBigDecimal(
+					 * "collectionLimit"));
+					 * operationalCenter.setCapacity(formObject.getBigDecimal("capacity"));
+					 * operationalCenter.setContactNo1(formObject.getString("contactNo1"));
+					 * operationalCenter.setContactNo2(formObject.getString("contactNo2"));
+					 */
+            		operationalCenter.setStatus(RecordStatusEnum.ACTIVE.getDescription());
+            		operationalCenter.setDescription(formObject.getString("description"));
+            		operationalCenter.setCreatedUser(userSessionUtil.getUserName());
+            		operationalCenter.setCreatedDate(new Date());
                 	
-                	getCollectionCenterServiceImpl().saveCollectionCenter(collectionCenter);
+                	getCollectionCenterServiceImpl().saveCollectionCenter(operationalCenter);
                     msg = "Record created successfully.!";
         		} else
         			msg = "Collection center data already exists.!";
@@ -113,43 +116,43 @@ public class CollectionCenterController {
         try {
         	UserSessionUtil userSessionUtil = UserSessionUtil.getUserSessionUtil(httpServletRequest);
         	if (userSessionUtil!=null) {
-        		CollectionCenter collectionCenter = getCollectionCenterServiceImpl().getCollectionCenterById(formObject.getLong("userId"));
-            	if (collectionCenter!=null) {
+        		OperationalCenter operationalCenter = getCollectionCenterServiceImpl().getCollectionCenterById(formObject.getLong("userId"));
+            	if (operationalCenter!=null) {
             		if (formObject.getString("type").equals("update")) {
                     	if (formObject.getString("code")!=null && formObject.getString("code")!="")
-                    		collectionCenter.setCode(formObject.getString("code"));
+                    		operationalCenter.setCode(formObject.getString("code"));
                 		
                     	if (formObject.getString("address")!=null && formObject.getString("address")!="")
-                    		collectionCenter.setAddress(formObject.getString("address"));
+                    		operationalCenter.setAddress(formObject.getString("address"));
                 		
                     	if (formObject.getString("name")!=null && formObject.getString("name")!="")
-                    		collectionCenter.setName(formObject.getString("name"));
-                		
+                    		operationalCenter.setName(formObject.getString("name"));
+                		/*
                     	if (formObject.getString("collectionLimit")!=null && formObject.getString("collectionLimit")!="")
-                    		collectionCenter.setCollectionLimit(formObject.getBigDecimal("collectionLimit"));
+                    		operationalCenter.setCollectionLimit(formObject.getBigDecimal("collectionLimit"));
                 		
                     	if (formObject.getString("capacity")!=null && formObject.getString("capacity")!="")
-                    		collectionCenter.setCapacity(formObject.getBigDecimal("capacity"));
+                    		operationalCenter.setCapacity(formObject.getBigDecimal("capacity"));
                 		
                     	if (formObject.getString("contactNo1")!=null && formObject.getString("contactNo1")!="")
-                    		collectionCenter.setContactNo1(formObject.getString("contactNo1"));
+                    		operationalCenter.setContactNo1(formObject.getString("contactNo1"));
                 		
                     	if (formObject.getString("contactNo2")!=null && formObject.getString("contactNo2")!="")
-                    		collectionCenter.setContactNo2(formObject.getString("contactNo2"));
+                    		operationalCenter.setContactNo2(formObject.getString("contactNo2"));*/
                 		
                     	if (formObject.getString("status")!=null && formObject.getString("status")!="")
-                    		collectionCenter.setStatus(RecordStatusEnum.ACTIVE.getDescription());
+                    		operationalCenter.setStatus(RecordStatusEnum.ACTIVE.getDescription());
                 		
                     	if (formObject.getString("description")!=null && formObject.getString("description")!="")
-                    		collectionCenter.setDescription(formObject.getString("description"));
+                    		operationalCenter.setDescription(formObject.getString("description"));
                     	
-                    	collectionCenter.setModifiedUser(userSessionUtil.getUserName());
-                    	collectionCenter.setModifiedDate(new Date());
+                    	operationalCenter.setModifiedUser(userSessionUtil.getUserName());
+                    	operationalCenter.setModifiedDate(new Date());
                     	
-                    	getCollectionCenterServiceImpl().updateCollectionCenter(collectionCenter);
+                    	getCollectionCenterServiceImpl().updateCollectionCenter(operationalCenter);
                         msg = "Record updated successfully.!";
     				} else {
-    					getCollectionCenterServiceImpl().deleteCollectionCenter(collectionCenter);
+    					getCollectionCenterServiceImpl().deleteCollectionCenter(operationalCenter);
     	                msg = "Record deleted successfully.!";
     				}
         		} else

@@ -16,11 +16,19 @@ import com.esoft.coursework.core.MapModifiedUserEntity;
 @Entity
 @Table(name = "customer")
 public class Customer extends MapModifiedUserEntity {
+	private String name;
 	private String nicNo;
 	private String code;
-	private String fullName;
 	private String address;
 	private String contactNo;
+	
+	@Column(name="name")
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	@Column(name="nicbr_no")
 	public String getNicNo() {
@@ -38,16 +46,8 @@ public class Customer extends MapModifiedUserEntity {
 		this.code = code;
 	}
 	
-	@Column(name="full_name")
-	public String getFullName() {
-		return fullName;
-	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
 	
-	
-	@Column(name="address_line")
+	@Column(name="address")
 	public String getAddress() {
 		return address;
 	}

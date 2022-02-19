@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 import com.esoft.coursework.domain.Customer;
 import com.esoft.coursework.serviceimpl.CustomerServiceImpl;
 import com.esoft.coursework.util.UserSessionUtil;
 
 /**
  * @author Udara Wikum
- * @since 22/11/2021 6.11PM
+ * @since 19/02/2022 4.01PM
  * @version 1.0.0
  * @developde Intellige_idea
  */
@@ -40,6 +40,8 @@ public class CustomerController {
 		this.customerServiceImpl = customerServiceImpl;
 	}
 
+	private String recordCannotBeBlank = "Record cannot be blank";
+	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	@ResponseBody
     public String allCustomer() {
@@ -59,10 +61,10 @@ public class CustomerController {
         
         Optional<Customer> Customer = getCustomerServiceImpl().getById(id);
         if (Customer.isPresent()) {
-        	CollectionCenter collectionCenter = new CollectionCenter();
-        	obj.put("farmerId", Customer.get().getId()); 
-			obj.put("farmerName", Customer.get().getFullName());
-			obj.put("farmerCode", Customer.get().getCode());
+        	OperationalCenter operationalCenter = new OperationalCenter();
+        	obj.put("customerId", Customer.get().getId()); 
+			obj.put("customerName", Customer.get().getName());
+			obj.put("customerCode", Customer.get().getCode());
 			
         }
         return obj.toString();
@@ -73,9 +75,17 @@ public class CustomerController {
     public String createCustomer(@RequestBody String formBody, HttpServletRequest httpServletRequest) {
         String msg = "";
         JSONObject obj = new JSONObject();
+        obj.put("error", "N");
+        
         JSONObject paramObject = new JSONObject(formBody);
         JSONObject formObject = (JSONObject) paramObject.get("params");
         DecimalFormat df = new DecimalFormat("0000000000");
+        
+        JSONObject errorObj = validateInputs(formObject);
+        if (errorObj.getString("error").equals("Y")) {
+            return errorObj.toString();
+        }
+        
         try {
         	UserSessionUtil userSessionUtil = UserSessionUtil.getUserSessionUtil(httpServletRequest);
         	if (userSessionUtil!=null) {
@@ -84,8 +94,9 @@ public class CustomerController {
             		Customer customer = new Customer();
                     
             		customer.setCode(df.format(getCustomerServiceImpl().getSequenceNo()));
+            		
             		customer.setNicNo(formObject.getString("nicbr"));
-            		customer.setFullName(formObject.getString("name"));
+            		customer.setName(formObject.getString("name"));
             		customer.setContactNo(formObject.getString("contactNo"));
             		customer.setAddress(formObject.getString("address"));
             		customer.setStatus(formObject.getString("status"));
@@ -106,6 +117,37 @@ public class CustomerController {
         return obj.toString();
     }
 	
+	private JSONObject validateInputs(JSONObject inputObj) {
+		JSONObject object = new JSONObject();
+		object.put("error", "N");
+		
+		if (inputObj.isNull("nicbr")) {
+			object.put("nicbr", recordCannotBeBlank);
+			object.put("error", "Y");
+		}
+		
+		if (inputObj.isNull("name")) {
+			object.put("nicbr", recordCannotBeBlank);
+			object.put("error", "Y");
+		}
+		
+		if (inputObj.isNull("contactNo")) {
+			object.put("nicbr", recordCannotBeBlank);
+			object.put("error", "Y");
+		}
+		
+		if (inputObj.isNull("address")) {
+			object.put("nicbr", recordCannotBeBlank);
+			object.put("error", "Y");
+		}
+		
+		if (inputObj.isNull("status")) {
+			object.put("nicbr", recordCannotBeBlank);
+			object.put("error", "Y");
+		}
+		return object;
+	}
+	
 	@RequestMapping(value = "/customer", method = RequestMethod.PUT)
 	@ResponseBody
     public String updateOrDeleteCustomer(@RequestBody String formBody, HttpServletRequest httpServletRequest) {
@@ -122,7 +164,7 @@ public class CustomerController {
             		Customer customer = optFarmer.get();
             		if (formObject.getString("type").equals("update")) {
                     	if (formObject.getString("name")!=null && formObject.getString("name")!="") 
-                    		customer.setFullName(formObject.getString("name"));
+                    		customer.setName(formObject.getString("name"));
                 		
                     	if (formObject.getString("contactNo")!=null && formObject.getString("contactNo")!="") 
                     		customer.setContactNo(formObject.getString("contactNo"));
