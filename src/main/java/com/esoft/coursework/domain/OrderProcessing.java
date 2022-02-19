@@ -30,6 +30,7 @@ public class OrderProcessing extends MapCreatedUserEntity {
 	private Date scheduleTime;
 	private String comments;
 	private Long collectionDetailId;
+	private Long sequence;
 	
 	@Column(name="type")
 	public String getType() {
@@ -117,6 +118,14 @@ public class OrderProcessing extends MapCreatedUserEntity {
 	}
 	public void setCollectionDetailId(Long collectionDetailId) {
 		this.collectionDetailId = collectionDetailId;
+	}
+	
+	@Column(name="sequence")
+	public Long getSequence() {
+		return sequence;
+	}
+	public void setSequence(Long sequence) {
+		this.sequence = sequence;
 	}
 	
 }

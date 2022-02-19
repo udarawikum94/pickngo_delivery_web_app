@@ -26,6 +26,7 @@ public class CollectionDetails extends MapModifiedUserEntity {
 	private String requestNo;
 	private String trackingNo;
 	private BigDecimal weight;
+	private String itemName;
 	private String itemType;
 	private Blob orderImage;
 	private SizeEnum size;	
@@ -35,6 +36,8 @@ public class CollectionDetails extends MapModifiedUserEntity {
 	private Long customerRequestId;
 	private Long recieverId;
 	private Boolean isCollected;
+	private Boolean isImediateRequest;
+	private Boolean hasInterBranchTrasfer;
 	
 	@Column(name="request_no")
 	public String getRequestNo() {
@@ -132,5 +135,30 @@ public class CollectionDetails extends MapModifiedUserEntity {
 	public void setIsCollected(Boolean isCollected) {
 		this.isCollected = isCollected;
 	}
+	
+	@Column(name="is_imediate_request")
+	public Boolean getIsImediateRequest() {
+		return isImediateRequest;
+	}
+	public void setIsImediateRequest(Boolean isImediateRequest) {
+		this.isImediateRequest = isImediateRequest;
+	}
+	
+	@Column(name="item_name")
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	
+	@Column(name="has_inter_branch_transfer")
+	public Boolean getHasInterBranchTrasfer() {
+		return hasInterBranchTrasfer;
+	}
+	public void setHasInterBranchTrasfer(Boolean hasInterBranchTrasfer) {
+		this.hasInterBranchTrasfer = hasInterBranchTrasfer;
+	}
+	
 	
 }

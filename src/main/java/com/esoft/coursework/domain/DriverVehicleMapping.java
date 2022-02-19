@@ -14,7 +14,7 @@ import com.esoft.coursework.core.MapModifiedUserEntity;
  */
 
 @Entity
-@Table(name = "driver")
+@Table(name = "vehicle_driver_mapping")
 public class DriverVehicleMapping extends MapModifiedUserEntity {
 	
 	private Long driverId;

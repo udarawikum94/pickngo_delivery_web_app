@@ -19,8 +19,11 @@ public class User extends MapModifiedUserEntity {
 	
 	private String code;
 	private String name;
-	private String designation;
-	private Long collectionCenterId;
+	private String accessGroup;
+	private Long operationCenterId;
+	private String nic;
+	private String contactNo;
+	private String emailAddress;
 	private String username;
 	private String password;
 	
@@ -40,20 +43,44 @@ public class User extends MapModifiedUserEntity {
 		this.name = name;
 	}
 	
-	@Column(name="designation")
-	public String getDesignation() {
-		return designation;
+	@Column(name="access_group")
+	public String getAccessGroup() {
+		return accessGroup;
 	}
-	public void setDesignation(String designation) {
-		this.designation = designation;
+	public void setAccessGroup(String accessGroup) {
+		this.accessGroup = accessGroup;
 	}
 	
-	@Column(name="collection_center_id")
-	public Long getCollectionCenterId() {
-		return collectionCenterId;
+	@Column(name="operation_center_id")
+	public Long getOperationCenterId() {
+		return operationCenterId;
 	}
-	public void setCollectionCenterId(Long collectionCenterId) {
-		this.collectionCenterId = collectionCenterId;
+	public void setOperationCenterId(Long operationCenterId) {
+		this.operationCenterId = operationCenterId;
+	}
+	
+	@Column(name="nic")
+	public String getNic() {
+		return nic;
+	}
+	public void setNic(String nic) {
+		this.nic = nic;
+	}
+	
+	@Column(name="contact_no")
+	public String getContactNo() {
+		return contactNo;
+	}
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+	
+	@Column(name="email_address")
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 	
 	@Column(name="username")

@@ -24,6 +24,7 @@ public class Transaction extends MapCreatedUserEntity {
 	private BigDecimal chargeAmount;
 	private Long collectionDetailId;
 	private Long chargeTemplateId;
+	private String requestNo;
 	
 	@Column(name="reciept_no")
 	public String getRecieptNo() {
@@ -63,6 +64,14 @@ public class Transaction extends MapCreatedUserEntity {
 	}
 	public void setChargeTemplateId(Long chargeTemplateId) {
 		this.chargeTemplateId = chargeTemplateId;
+	}
+	
+	@Column(name="request_no")
+	public String getRequestNo() {
+		return requestNo;
+	}
+	public void setRequestNo(String requestNo) {
+		this.requestNo = requestNo;
 	}
 	
 }
