@@ -61,7 +61,7 @@ public class UserController {
         	OperationalCenter operationalCenter = new OperationalCenter();
         	obj.put("userId", user.get().getId()); 
 			obj.put("userName", user.get().getUsername());
-			obj.put("designation", user.get().getDesignation());
+			obj.put("designation", user.get().getAccessGroup());
 			obj.put("userCode", user.get().getCode());
 			
 			//if (collectionCenter!=null)
@@ -90,9 +90,9 @@ public class UserController {
             		User user = new User();
                     
                 	user.setCode(formObject.getString("code"));
-                	user.setDesignation(formObject.getString("designation"));
+                	user.setAccessGroup(formObject.getString("designation"));
                 	user.setName(formObject.getString("name"));
-                	user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
+                	user.setOperationCenterId(formObject.getLong("collectionCenterId"));
                 	user.setUsername(formObject.getString("username"));
                 	user.setPassword(formObject.getString("password"));
                 	user.setCreatedUser(userSessionUtil.getUserName());
@@ -130,13 +130,13 @@ public class UserController {
                     		user.setCode(formObject.getString("code"));
                     	
                     	if (formObject.getString("designation")!=null && formObject.getString("designation")!="") 
-                    		user.setDesignation(formObject.getString("designation"));
+                    		user.setAccessGroup(formObject.getString("designation"));
                     	
                     	if (formObject.getString("name")!=null && formObject.getString("name")!="") 
                     		user.setName(formObject.getString("name"));
                     	
                     	if (formObject.getString("collectionCenterId")!=null && formObject.getString("collectionCenterId")!="") 
-                    		user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
+                    		user.setOperationCenterId(formObject.getLong("collectionCenterId"));
                     	
                     	if (formObject.getString("username")!=null && formObject.getString("username")!="") 
                     		user.setUsername(formObject.getString("username"));

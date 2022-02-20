@@ -26,6 +26,7 @@ public class Driver extends MapModifiedUserEntity {
 	private String licenseExpDate;
 	private String username;
 	private String password;
+	private Long operationCenterId;
 	
 	@Column(name="name")
 	public String getName() {
@@ -97,5 +98,13 @@ public class Driver extends MapModifiedUserEntity {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Column(name="operation_center_id")
+	public Long getOperationCenterId() {
+		return operationCenterId;
+	}
+	public void setOperationCenterId(Long operationCenterId) {
+		this.operationCenterId = operationCenterId;
 	}
 }

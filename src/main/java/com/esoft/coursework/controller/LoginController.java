@@ -57,7 +57,7 @@ public class LoginController {
         	OperationalCenter operationalCenter = new OperationalCenter();
 			obj.put("userId", user.getId()); 
 			obj.put("userName", user.getUsername());
-			obj.put("designation", user.getDesignation());
+			obj.put("designation", user.getAccessGroup());
 			obj.put("userCode", user.getCode());
 			
 			if (operationalCenter!=null)
@@ -71,7 +71,7 @@ public class LoginController {
         	UserSessionUtil sessionUtil = new UserSessionUtil();
         	sessionUtil.setUserId(user.getId());
         	sessionUtil.setUserName(user.getUsername());
-        	sessionUtil.setDesignation(user.getDesignation());
+        	sessionUtil.setDesignation(user.getAccessGroup());
         	sessionUtil.setUserCode(user.getCode());
         	sessionUtil.setCollectionCenter(operationalCenter);
         	

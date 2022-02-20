@@ -14,10 +14,11 @@ import com.esoft.coursework.core.BaseEntityClass;
  */
 
 @Entity
-@Table(name = "district")
+@Table(name = "tracking_no_generator")
 public class TrackingNoGenerator extends BaseEntityClass {
 	
 	private Long sequence;
+	private Long operationCenterId;
 
 	@Column(name="sequence")
 	public Long getSequence() {

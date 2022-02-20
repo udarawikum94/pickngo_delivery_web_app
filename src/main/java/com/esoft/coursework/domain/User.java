@@ -14,7 +14,7 @@ import com.esoft.coursework.core.MapModifiedUserEntity;
  */
 
 @Entity
-@Table(name = "user")
+@Table(name = "officer")
 public class User extends MapModifiedUserEntity {
 	
 	private String code;
