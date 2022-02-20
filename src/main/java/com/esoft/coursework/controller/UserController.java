@@ -92,7 +92,7 @@ public class UserController {
                 	user.setCode(formObject.getString("code"));
                 	user.setAccessGroup(formObject.getString("designation"));
                 	user.setName(formObject.getString("name"));
-                	user.setOperationCenterId(formObject.getLong("collectionCenterId"));
+			user.setOperationCenterId(formObject.getLong("collectionCenterId"));
                 	user.setUsername(formObject.getString("username"));
                 	user.setPassword(formObject.getString("password"));
                 	user.setCreatedUser(userSessionUtil.getUserName());
