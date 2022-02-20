@@ -384,7 +384,7 @@
 	
 	var dataList;
 	function getData(){
-		axios.get('/pickngo-mgt/user.do')
+		axios.get('/pickngo-mgt/district.do')
    		  .then(function (response) {
    		    console.log(tableDistrict);
    		    dataList = '';
