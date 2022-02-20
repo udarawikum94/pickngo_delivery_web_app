@@ -19,41 +19,59 @@ import com.esoft.coursework.core.MapCreatedUserEntity;
 @Entity
 @Table(name = "transaction")
 public class Transaction extends MapCreatedUserEntity {
-	private String transactionNo;
-	private Date date;
-	private BigDecimal cashInAmount;
-	private BigDecimal cashOutAmount;
+	private String recieptNo;
+	private Date transactionDate;
+	private BigDecimal chargeAmount;
+	private Long collectionDetailId;
+	private Long chargeTemplateId;
+	private String requestNo;
 	
-	@Column(name="transaction_no")
-	public String getTransactionNo() {
-		return transactionNo;
+	@Column(name="reciept_no")
+	public String getRecieptNo() {
+		return recieptNo;
 	}
-	public void setTransactionNo(String transactionNo) {
-		this.transactionNo = transactionNo;
-	}
-	
-	@Column(name="date")
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setRecieptNo(String recieptNo) {
+		this.recieptNo = recieptNo;
 	}
 	
-	@Column(name="cash_in_amount")
-	public BigDecimal getCashInAmount() {
-		return cashInAmount;
+	@Column(name="transaction_date")
+	public Date getTransactionDate() {
+		return transactionDate;
 	}
-	public void setCashInAmount(BigDecimal cashInAmount) {
-		this.cashInAmount = cashInAmount;
+	public void setTransactionDate(Date transactionDate) {
+		this.transactionDate = transactionDate;
 	}
 	
-	@Column(name="cash_out_amount")
-	public BigDecimal getCashOutAmount() {
-		return cashOutAmount;
+	@Column(name="charge_amount")
+	public BigDecimal getChargeAmount() {
+		return chargeAmount;
 	}
-	public void setCashOutAmount(BigDecimal cashOutAmount) {
-		this.cashOutAmount = cashOutAmount;
+	public void setChargeAmount(BigDecimal chargeAmount) {
+		this.chargeAmount = chargeAmount;
+	}
+	
+	@Column(name="collection_detail_id")
+	public Long getCollectionDetailId() {
+		return collectionDetailId;
+	}
+	public void setCollectionDetailId(Long collectionDetailId) {
+		this.collectionDetailId = collectionDetailId;
+	}
+	
+	@Column(name="charge_template_id")
+	public Long getChargeTemplateId() {
+		return chargeTemplateId;
+	}
+	public void setChargeTemplateId(Long chargeTemplateId) {
+		this.chargeTemplateId = chargeTemplateId;
+	}
+	
+	@Column(name="request_no")
+	public String getRequestNo() {
+		return requestNo;
+	}
+	public void setRequestNo(String requestNo) {
+		this.requestNo = requestNo;
 	}
 	
 }

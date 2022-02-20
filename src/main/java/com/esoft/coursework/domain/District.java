@@ -4,21 +4,29 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.esoft.coursework.core.BaseEntityClass;
+import com.esoft.coursework.core.MapModifiedUserEntity;
 
 /**
  * @author Udara Wikum
- * @since 20/11/2021 7.45PM
+ * @since 19/02/2022 3.59PM
  * @version 1.0.0
  * @developde Intellige_idea
  */
 
 @Entity
-@Table(name = "cash_in_hand")
-public class CashInHand extends BaseEntityClass {
+@Table(name = "districts")
+public class District extends MapModifiedUserEntity {
 	
 	private String code;
 	private String name;
+	
+	@Column(name="name")
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	@Column(name="code")
 	public String getCode() {
@@ -28,11 +36,4 @@ public class CashInHand extends BaseEntityClass {
 		this.code = code;
 	}
 	
-	@Column(name="name")
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 }

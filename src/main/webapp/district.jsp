@@ -13,8 +13,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Pick & Go - Dashboard</title>
-
+  <title>Pick & Go - District Management</title>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -55,25 +54,9 @@
   <link href="<c:url value="css/sb-admin.css"/>" rel="stylesheet">
   <script src="js/axios.min.js"></script>
 	<script src="js/r.js"></script>
-	
 	<script type="text/javascript">
-	function getUserInfo() {
-		axios.get('/pickngo-mgt/user/username/'+sessionStorage.getItem(`userName`)+'.do')
-   		  .then(function (response) {
-   		  		//var responseData = response['data']['collectionCenterData'];
-   		  		sessionStorage.setItem('display_name', response.data['userName']);
-   		    	sessionStorage.setItem('designation', response.data['designation']);
-                sessionStorage.setItem('userId', response.data['userId']);
-   		  })
-   		  .catch(function (error) {
-   		    //alert(error);
-   		  })
-   		  .then(function () {
-   		    	treeNode();
-   		    	document.getElementById("welcomeNote").innerHTML = "Hi "+  sessionStorage.getItem('display_name');
-   		  });
-	}
-
+	var tableDistrict = "";
+	var tableCollectionCenter = "";
 	function treeNode(){
 		if (sessionStorage.getItem(`designation`)=="Administrator") {
 			document.getElementById("dashboard").style.display = "";
@@ -266,10 +249,219 @@
 		}
 	}
 	
+	function update(){
+		var id = document.getElementById("id").value;
+		var code = document.getElementById("code").value;
+		var name = document.getElementById("name").value;
+		var status = document.getElementById("status").value;
+				
+		if (validateInputs('UPDATE')) {
+			return false
+		}
+		
+		if (confirm('Are you sure you want to proceed?')) {
+			axios.put('/pickngo-mgt/district.do', {
+	   		    params: {
+	   		    	id:id,
+	   		    	code: code,
+	   				status: status,
+	   				name: name,
+	   				type: "update"
+	   		    }
+	   		  })
+	   		  .then(function (response) {
+	   		    console.log(response);
+	   		    alert(response['data']['msg']);
+	   		 	//getData();
+	   		  })
+	   		  .catch(function (error) {
+	   		    alert(error);
+	   		  })
+	   		  .then(function () {
+	   			//getRefreshGridData();
+	   		  });
+		}
+	}
+	
+	function validateInputs(event) {
+		var id = document.getElementById("id").value;
+		var code = document.getElementById("code").value;
+		var name = document.getElementById("name").value;
+		var status=false;
+		
+		if (event=="CREATE") {
+			if(code==null || code=='') {
+				document.getElementById("msgCode").innerHTML = "code is required";
+				status = true;
+			} else if (code.length!=4) {
+				document.getElementById("msgCode").innerHTML = "code must be 4 characters";
+				status = true;
+			}
+			
+			if(name==null || name=='') {
+				document.getElementById("msgName").innerHTML = "name is required";
+				status = true;
+			} 
+			
+		} else if (event=="UPDATE") {
+			if (document.getElementById("id").value==null || document.getElementById("id").value=='') {
+				alert("Please select a record to update");
+			}				
+			
+			if(code==null || code=='') {
+				document.getElementById("msgCode").innerHTML = "code is required";
+				status = true;
+			} else if (code.length!=4) {
+				document.getElementById("msgCode").innerHTML = "code must be 4 characters";
+				status = true;
+			}
+			
+			if(name==null || name=='') {
+				document.getElementById("msgName").innerHTML = "name is required";
+				status = true;
+			} 
+			
+		}
+		return status;
+	}
+	
+	function save(){
+		var code = document.getElementById("code").value;
+		var name = document.getElementById("name").value;
+		var status = document.getElementById("status").value;
+		
+		if (validateInputs('CREATE')) {
+			return false
+		}
+		
+		if (confirm('Are you sure you want to proceed?')) {
+		  axios.post('/pickngo-mgt/district.do', {
+   		    params: {
+   		    	code: code,
+   				status: status,
+   				name: name,
+   		    }
+   		  })
+   		  .then(function (response) {
+   		    console.log(response);
+   		    alert(response['data']['msg']);
+   		  })
+   		  .catch(function (error) {
+   		    alert(error);
+   		  })
+   		  .then(function () {
+   		    getRefreshGridData();
+   		  });
+		}
+	}
+	
+	function deleteF(){
+		var userId = document.getElementById("id").value;
+		if (document.getElementById("id").value==null || document.getElementById("id").value=='') {
+			alert("Please select a record to delete");
+		}
+			
+		if (confirm('Are you sure you want to proceed?')) {
+			axios.put('/pickngo-mgt/user.do', {
+	   		    params: {
+	   		    	userId: userId,
+	   				type: "delete"
+	   		    }
+	   		  })
+	   		  .then(function (response) {
+	   		    console.log(response);
+	   		    alert(response['data']['msg']);
+	   		 	//getData();
+	   		  })
+	   		  .catch(function (error) {
+	   		    alert(error);
+	   		  })
+	   		  .then(function () {
+	   		    getRefreshGridData();
+	   		  });
+		}
+	}
+	
+	var dataList;
+	function getData(){
+		axios.get('/pickngo-mgt/district.do')
+   		  .then(function (response) {
+   		    console.log(tableDistrict);
+   		    dataList = '';
+   		 	dataList = response['data']['districtList'];
+	   		console.log(dataList);
+	   		getGridData();
+   		  })
+   		  .catch(function (error) {
+   		    //alert(error);
+   		  })
+   		  .then(function () {
+   		    // always executed
+   		  });
+	}
+	
+	function getRefreshGridData(){
+		axios.get('/pickngo-mgt/district.do')
+   		  .then(function (response) {
+   		    console.log(tableDistrict);
+   		    dataList = '';
+   		 	dataList = response['data']['districtList'];
+	   		console.log(dataList);
+	   		tableDistrict.reload();
+   		  })
+   		  .catch(function (error) {
+   		    //alert(error);
+   		  })
+   		  .then(function () {
+   		    // always executed
+   		  });
+	}
+    
+    function getGridData(){
+    	//table = $('#tblUser').DataTable(),destroy();
+    	tableDistrict = $('#tblUser').DataTable( {
+	        "data": dataList,
+	        "columns": [
+	        	{ "data": "id" },
+	            { "data": "code" },
+	            { "data": "name" },	            
+	            { "data": "status"}
+	            //{ "data": "username"}
+	        ],
+	        select: true
+	    } );
+    }
+	
+	$(document).ready(function() {
+	 	$('#tblUser').on( 'click', 'tr', function () {
+		 //console.log(tableDistrict.row( this ).data());
+		 document.getElementById("id").value = tableDistrict.row( this ).data()['id'];
+		 document.getElementById("code").value = tableDistrict.row( this ).data()['code'];
+		 document.getElementById("name").value = tableDistrict.row( this ).data()['name'];		 
+		 document.getElementById("status").value = tableDistrict.row( this ).data()['status'];
+	 });
+	    /* $('#button').click( function () {
+	        tableDistrict.row('.selected').remove().draw( false );
+	    } ); */
+	} );
+	
+	function clearAll(){
+		document.getElementById("id").value = "";
+		document.getElementById("code").value = "";
+		document.getElementById("name").value = "";
+		
+		clearDiv();
+	}
+	
+	function clearDiv() {
+		document.getElementById("msgCode").innerHTML = "";
+		document.getElementById("msgName").innerHTML = "";
+	}
+	
 	</script>
 </head>
 
-<body id="page-top" onload="getUserInfo();">
+<body id="page-top" onload="treeNode();getData();">
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -388,51 +580,125 @@
           <li class="breadcrumb-item">
             <a href="dashboard.jsp">Dashboard</a>
           </li>
-          <!-- <li class="breadcrumb-item active">Home</li> -->
+          <li class="breadcrumb-item active">District Management</li>
         </ol>
 
         <!-- Page Content -->
-        <h1 id="welcomeNote"></h1>
-        <hr><br>
-        <div class="row">
-              <div class="col-xl-3 col-md-6">
-                  <div class="card bg-primary text-white mb-4">
-                      <div class="card-body">Purchase Details</div>
-                      <div class="card-footer d-flex align-items-center justify-content-between">
-                          <a class="small text-white stretched-link" href="#">View Details</a>
-                          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                  <div class="card bg-warning text-white mb-4">
-                      <div class="card-body">Issue Details</div>
-                      <div class="card-footer d-flex align-items-center justify-content-between">
-                          <a class="small text-white stretched-link" href="#">View Details</a>
-                          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                  <div class="card bg-success text-white mb-4">
-                      <div class="card-body">Stock Details</div>
-                      <div class="card-footer d-flex align-items-center justify-content-between">
-                          <a class="small text-white stretched-link" href="#">View Details</a>
-                          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                  <div class="card bg-danger text-white mb-4">
-                      <div class="card-body">Sales Details</div>
-                      <div class="card-footer d-flex align-items-center justify-content-between">
-                          <a class="small text-white stretched-link" href="#">View Details</a>
-                          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                      </div>
-                  </div>
-              </div>
+        <h1>District Management</h1>
+        <hr>
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            District Management</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="display" id="tblUser" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                  	<th>Ref No</th>
+                    <th>Disticts Code</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                  	<th>Ref No</th>
+                    <th>Disticts Code</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
 
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card mb-3">
+              <div class="card-header">
+              <input type="hidden" id="id">
+                <i class="fas fa-chart-bar"></i>
+                District Creation Form
+               </div>
+              <div class="card-body">
+                <form>
+		          <div class="form-group">
+		            <div class="form-row">
+		              <div class="col-md-12">
+		                <div class="form-label-group">
+		                  <input type="text" id="code" class="form-control" autofocus="autofocus" onfocus="clearDiv();">
+		                  <label for="code">Code</label>
+		                  <span id="msgCode" style="color:red"></span>
+		                </div>
+		              </div>
+		              </div>
+		          </div>
+		          <div class="form-group">
+		            <div class="form-row">
+		              <div class="col-md-12">
+		                <div class="form-label-group">
+		                  <input type="text" id="name" class="form-control" autofocus="autofocus" onfocus="clearDiv();">
+		                  <label for="name">Name</label>
+		                  <span id="msgName" style="color:red"></span>
+		                </div>
+		              </div>
+		              </div>
+		          </div>
+		        </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card mb-3">
+              <div class="card-header">
+                <i class="fas fa-chart-bar"></i>
+                </div>
+              <div class="card-body">
+                <form>
+		          <div class="form-group">
+		            <div class="form-row">
+		              <div class="col-md-12">
+		                <div class="form-label-group">
+					      <select class="form-control" id="status" autofocus="autofocus" onfocus="clearDiv();">
+					        <option>ACTIVE</option>
+					        <option>INACTIVE</option>
+					      </select>
+		                  <span id="msgStatus" style="color:red"></span>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </form>
+              </div>
+            </div>
+          </div>
+		</div>
       </div>
+      <div class="row">          	
+             <div class="col-md-12">
+             	<div class="col-md-4">
+             		 
+             	</div>
+
+             	<div class="col-md-6 float-right" >
+             	<div class="row ">
+             		 <div class="col-md-3 float-right">
+		             </div>
+	                <div class="col-md-3 float-right">
+		                <input type="button" class="btn btn-primary btn-block" onclick="save()" value="Save">
+		             </div>
+		             <div class="col-md-3 float-right">
+		                <input type="button" class="btn btn-primary btn-block float-right" onclick="update()" value="Modify">
+		             </div>
+		             <div class="col-md-3 float-right">
+		                <input type="reset" class="btn btn-primary btn-block float-right" onclick="clearAll();" value="Clear">
+		             </div>
+		         </div>
+		         </div>
+             </div>
+	             
+	        </div>
 	     <div class="row">          	
              <div class="col-md-12">
              	 
@@ -446,7 +712,7 @@
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright © Paddy Storage Cooperation (PSC)  2021</span>
+            <span>Copyright © Pick & Go  2022</span>
           </div>
         </div>
       </footer>
@@ -475,32 +741,12 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.jsp">Logout</a>
+          <a class="btn btn-primary" href="login.jsp" onclick="">Logout</a>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
-
-
-	<!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin.min.js"></script>
+  
 </body>
 
 </html>

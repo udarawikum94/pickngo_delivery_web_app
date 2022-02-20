@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 import com.esoft.coursework.domain.User;
 import com.esoft.coursework.serviceimpl.UserServiceImpl;
 import com.esoft.coursework.util.UserSessionUtil;
@@ -58,10 +58,10 @@ public class UserController {
         
         Optional<User> user = getUserServiceImpl().getUserByUsername(username);
         if (user.isPresent()) {
-        	CollectionCenter collectionCenter = new CollectionCenter();
+        	OperationalCenter operationalCenter = new OperationalCenter();
         	obj.put("userId", user.get().getId()); 
 			obj.put("userName", user.get().getUsername());
-			obj.put("designation", user.get().getDesignation());
+			obj.put("designation", user.get().getAccessGroup());
 			obj.put("userCode", user.get().getCode());
 			
 			//if (collectionCenter!=null)
@@ -90,9 +90,9 @@ public class UserController {
             		User user = new User();
                     
                 	user.setCode(formObject.getString("code"));
-                	user.setDesignation(formObject.getString("designation"));
+                	user.setAccessGroup(formObject.getString("designation"));
                 	user.setName(formObject.getString("name"));
-                	user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
+                	user.setOperationCenterId(formObject.getLong("collectionCenterId"));
                 	user.setUsername(formObject.getString("username"));
                 	user.setPassword(formObject.getString("password"));
                 	user.setCreatedUser(userSessionUtil.getUserName());
@@ -130,13 +130,13 @@ public class UserController {
                     		user.setCode(formObject.getString("code"));
                     	
                     	if (formObject.getString("designation")!=null && formObject.getString("designation")!="") 
-                    		user.setDesignation(formObject.getString("designation"));
+                    		user.setAccessGroup(formObject.getString("designation"));
                     	
                     	if (formObject.getString("name")!=null && formObject.getString("name")!="") 
                     		user.setName(formObject.getString("name"));
                     	
                     	if (formObject.getString("collectionCenterId")!=null && formObject.getString("collectionCenterId")!="") 
-                    		user.setCollectionCenterId(formObject.getLong("collectionCenterId"));
+                    		user.setOperationCenterId(formObject.getLong("collectionCenterId"));
                     	
                     	if (formObject.getString("username")!=null && formObject.getString("username")!="") 
                     		user.setUsername(formObject.getString("username"));

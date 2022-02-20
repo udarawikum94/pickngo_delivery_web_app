@@ -1,7 +1,5 @@
 package com.esoft.coursework.domain;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,23 +8,21 @@ import com.esoft.coursework.core.MapModifiedUserEntity;
 
 /**
  * @author Udara Wikum
- * @since 20/11/2021 7.59PM
+ * @since 19/02/2022 4.01PM
  * @version 1.0.0
  * @developde Intellige_idea
  */
 
 @Entity
-@Table(name = "collection_center")
-public class CollectionCenter extends MapModifiedUserEntity {
+@Table(name = "reciever")
+public class Reciever extends MapModifiedUserEntity {
 	
-	private String code;
 	private String name;
-	private String description;
 	private String address;
 	private String contactNo1;
 	private String contactNo2;
-	private BigDecimal collectionLimit;
-	private BigDecimal capacity;
+	private String email;
+	private Long collectionDetailId;
 	
 	@Column(name="name")
 	public String getName() {
@@ -34,22 +30,6 @@ public class CollectionCenter extends MapModifiedUserEntity {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	
-	@Column(name="code")
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	
-	@Column(name="description")
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	@Column(name="address")
@@ -76,20 +56,20 @@ public class CollectionCenter extends MapModifiedUserEntity {
 		this.contactNo2 = contactNo2;
 	}
 	
-	@Column(name="colllection_limit")
-	public BigDecimal getCollectionLimit() {
-		return collectionLimit;
+	@Column(name="email")
+	public String getEmail() {
+		return email;
 	}
-	public void setCollectionLimit(BigDecimal collectionLimit) {
-		this.collectionLimit = collectionLimit;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
-	@Column(name="capacity")
-	public BigDecimal getCapacity() {
-		return capacity;
+	@Column(name="collection_detail_id")
+	public Long getCollectionDetailId() {
+		return collectionDetailId;
 	}
-	public void setCapacity(BigDecimal capacity) {
-		this.capacity = capacity;
+	public void setCollectionDetailId(Long collectionDetailId) {
+		this.collectionDetailId = collectionDetailId;
 	}
 	
 }

@@ -9,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.esoft.coursework.domain.CollectionCenter;
+import com.esoft.coursework.domain.OperationalCenter;
 
 @Repository
 public class CollectionCenterDAOImpl {
@@ -23,23 +23,23 @@ public class CollectionCenterDAOImpl {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public CollectionCenter getCollectionCenterById(Long id) {
-		Criteria crt = getSession().createCriteria(CollectionCenter.class);
+	public OperationalCenter getCollectionCenterById(Long id) {
+		Criteria crt = getSession().createCriteria(OperationalCenter.class);
 		crt.add(Restrictions.eq("id", id));
 		
-		return (CollectionCenter) crt.uniqueResult();
+		return (OperationalCenter) crt.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<CollectionCenter> getAllCollectionCenter() {
-		Criteria crt = getSession().createCriteria(CollectionCenter.class);
-		List<CollectionCenter> collectionCenterList = crt.list();
+	public List<OperationalCenter> getAllCollectionCenter() {
+		Criteria crt = getSession().createCriteria(OperationalCenter.class);
+		List<OperationalCenter> collectionCenterList = crt.list();
 		
 		return collectionCenterList;
 	}
 	
 	public boolean isExistCollectionCenter(Long id) {
-		Criteria crt = getSession().createCriteria(CollectionCenter.class);
+		Criteria crt = getSession().createCriteria(OperationalCenter.class);
 		crt.add(Restrictions.eq("id", id));
 		
 		if (crt.uniqueResult()!=null) 
@@ -48,7 +48,7 @@ public class CollectionCenterDAOImpl {
 	}
 	
 	public boolean isExistCollectionCenterByCode(String code) {
-		Criteria crt = getSession().createCriteria(CollectionCenter.class);
+		Criteria crt = getSession().createCriteria(OperationalCenter.class);
 		crt.add(Restrictions.eq("code", code));
 		
 		if (crt.uniqueResult()!=null) 
@@ -56,15 +56,15 @@ public class CollectionCenterDAOImpl {
 		return false;
 	}
 	
-	public void saveCollectionCenter(CollectionCenter collectionCenter) {
-		getSession().save(collectionCenter);
+	public void saveCollectionCenter(OperationalCenter operationalCenter) {
+		getSession().save(operationalCenter);
 	}
 	
-	public void updateCollectionCenter(CollectionCenter collectionCenter) {
-		getSession().saveOrUpdate(collectionCenter);
+	public void updateCollectionCenter(OperationalCenter operationalCenter) {
+		getSession().saveOrUpdate(operationalCenter);
 	}
 	
-	public void deleteCollectionCenter(CollectionCenter collectionCenter) {
-		getSession().delete(collectionCenter);
+	public void deleteCollectionCenter(OperationalCenter operationalCenter) {
+		getSession().delete(operationalCenter);
 	}
 }
